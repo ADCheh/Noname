@@ -5,16 +5,11 @@ namespace Infrastructure
     public class Game
     {
         public static IInputService InputService;
+        public GameStateMachine StateMachine;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            RegisterInputService();
-        }
-
-        private static void RegisterInputService()
-        {
-            //With more input service types add here
-            InputService = new StandaloneInputService();
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }
