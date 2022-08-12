@@ -1,7 +1,6 @@
-﻿using System;
-using Services.Input;
+﻿using Services.Input;
 
-namespace Infrastructure
+namespace Infrastructure.States
 {
     public class BootstrapState : IState
     {

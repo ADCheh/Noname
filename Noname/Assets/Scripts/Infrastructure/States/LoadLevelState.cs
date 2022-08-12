@@ -1,17 +1,18 @@
 ﻿using CameraLogic;
+using Infrastructure.Factory;
 using Logic;
 using UnityEngine;
 
-namespace Infrastructure
+namespace Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
-        private const string HeroPath = "Prefabs/Hero";
-        private const string HudPath = "Prefabs/Hud";
+
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;
+        private readonly IGameFactory _gameFactory;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain)
         {
@@ -33,9 +34,9 @@ namespace Infrastructure
 
         private void OnLoaded()
         {
-            GameObject initialPoint = GameObject.FindWithTag(InitialPointTag);
-            GameObject hero = Instatntiate(HeroPath, initialPoint.transform.position);
-            Instatntiate(HudPath);
+            GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
+
+            _gameFactory.CreateHud();
             
             CameraFollow(hero);
             
@@ -46,17 +47,6 @@ namespace Infrastructure
         {
             Camera.main.
                 GetComponent<CameraFollow>().Follow(hero);
-        }
-
-        private GameObject Instatntiate(string path)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
-        private GameObject Instatntiate(string path, Vector3 at)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at ,Quaternion.identity);
         }
     }
 }
