@@ -487,8 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f2b0c835f64f44a0a6fd7a8385d74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationAngleX: 40
-  Distance: 5
+  RotationAngleX: 60
+  Distance: 10
   OffsetY: 0.5
   _following: {fileID: 0}
 --- !u!1001 &1900384327
@@ -569,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156381295458013427, guid: 58bfdcdcb5df542b9bd638a51d825a6c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.1732626
+      value: -14.88
       objectReference: {fileID: 0}
     - target: {fileID: 5156381295458013427, guid: 58bfdcdcb5df542b9bd638a51d825a6c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -602,6 +602,10 @@ PrefabInstance:
     - target: {fileID: 5159685399465329419, guid: 58bfdcdcb5df542b9bd638a51d825a6c, type: 3}
       propertyPath: m_Name
       value: Lich
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420949015840551813, guid: 58bfdcdcb5df542b9bd638a51d825a6c, type: 3}
+      propertyPath: Cooldown
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58bfdcdcb5df542b9bd638a51d825a6c, type: 3}
