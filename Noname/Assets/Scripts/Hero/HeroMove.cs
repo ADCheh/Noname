@@ -29,7 +29,7 @@ namespace Hero
             {
                 movementVector = Camera.main.transform.TransformDirection(_input.Axis);
                 movementVector.y = 0;
-                //movementVector.z = 0;
+                movementVector.z = 0;
                 movementVector.Normalize();
 
                 transform.forward = movementVector;
