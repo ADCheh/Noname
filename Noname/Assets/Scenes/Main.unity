@@ -5088,7 +5088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationAngleX: 30
-  Distance: 10
+  Distance: 15
   OffsetY: 0.5
   _following: {fileID: 0}
 --- !u!1001 &968424725
@@ -9371,7 +9371,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 19.409945, y: 0.1, z: 20.882832}
+  m_Size: {x: 19.409945, y: 0.46418762, z: 20.882832}
   m_Center: {x: 0.05659583, y: 0.23025247, z: 0.22578388}
 --- !u!1001 &1933863904
 PrefabInstance:
