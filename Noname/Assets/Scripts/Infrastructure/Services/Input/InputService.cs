@@ -9,9 +9,7 @@ namespace Services.Input
         protected const string AttackButton = "Attack";
         
         public abstract Vector3 Axis { get; }
-        public bool IsAttackButtonUp()
-        {
-            throw new System.NotImplementedException();
-        }
+        public abstract bool IsAttackButtonUp();
+
     }
 }

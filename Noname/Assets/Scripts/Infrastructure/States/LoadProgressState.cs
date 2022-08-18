@@ -1,5 +1,4 @@
-﻿using System;
-using Data;
+﻿using Data;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
 
@@ -35,7 +34,14 @@ namespace Infrastructure.States
 
         private PlayerProgress NewProgress()
         {
-            return new PlayerProgress("Main");
+            var progress = new PlayerProgress("Main");
+
+            progress.HeroState.MaxHP = 50;
+            progress.HeroStats.Damage = 1f;
+            progress.HeroStats.DamageRadius = 0.5f;
+            progress.HeroState.ResetHP();
+            
+            return progress;
         }
     }
 }
