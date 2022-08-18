@@ -1,8 +1,9 @@
-﻿using System;
-using CameraLogic;
+﻿using CameraLogic;
+using Hero;
 using Infrastructure.Factory;
 using Infrastructure.Services.PersistentProgress;
 using Logic;
+using UI;
 using UnityEngine;
 
 namespace Infrastructure.States
@@ -56,11 +57,24 @@ namespace Infrastructure.States
 
         private void InitGameWorld()
         {
-            GameObject hero = _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
-
-            _gameFactory.CreateHud();
+            GameObject hero = InitHero();
+            
+            //
+            InitHud(hero);
+            //
 
             CameraFollow(hero);
+        }
+
+        private void InitHud(GameObject hero)
+        {
+            GameObject hud = _gameFactory.CreateHud();
+            hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
+        }
+
+        private GameObject InitHero()
+        {
+            return _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
         }
 
         private void CameraFollow(GameObject hero)

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Data;
+using Hero;
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Enemy
         public float AttackCooldown = 3f;
         public float Cleavage = 0.5f;
         public float EffectiveDistance = 0.5f;
+        public float Damage = 10f;
 
         private IGameFactory _factory;
         private Transform _heroTransform;
@@ -44,6 +46,7 @@ namespace Enemy
             if (Hit(out Collider hit))
             {
                 PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1);
+                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
             }
         }
 

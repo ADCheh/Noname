@@ -3,6 +3,6 @@
     public static class AssetPath
     {
         public const string HeroPath = "Prefabs/Hero";
-        public const string HudPath = "Prefabs/Hud";
+        public const string HudPath = "Hud/Hud";
     }
 }
