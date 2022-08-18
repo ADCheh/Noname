@@ -12,5 +12,10 @@ namespace Services.Input
                 return axis;
             } 
         }
+
+        public override bool IsAttackButtonUp()
+        {
+            return UnityEngine.Input.GetMouseButtonUp(0);
+        }
     }
 }

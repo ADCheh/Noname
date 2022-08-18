@@ -3,6 +3,7 @@ using Data;
 using Hero;
 using Infrastructure.Factory;
 using Infrastructure.Services;
+using Logic;
 using UnityEngine;
 
 namespace Enemy
@@ -47,7 +48,7 @@ namespace Enemy
             if (Hit(out Collider hit))
             {
                 PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1);
-                hit.transform.GetComponent<HeroHealth>().TakeDamage(Damage);
+                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
         }
 

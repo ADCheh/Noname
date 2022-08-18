@@ -1,16 +1,17 @@
 using System;
 using Data;
 using Infrastructure.Services.PersistentProgress;
+using Logic;
 using UnityEngine;
 
 namespace Hero
 {
     [RequireComponent(typeof(HeroAnimator))]
-    public class HeroHealth : MonoBehaviour, ISavedProgress
+    public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
     {
         public HeroAnimator Animator;
+        public event Action HealthChanged;
 
-        public Action HealthChanged;
         public float Current
         {
             get => _state.CurrentHP;
