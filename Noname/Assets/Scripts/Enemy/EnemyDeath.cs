@@ -37,6 +37,10 @@ namespace Enemy
             Animator.PlayDeath();
 
             SpawnDeathFx();
+            
+            //
+            GetComponent<AgentMoveToHero>().enabled = false;
+            //
 
             StartCoroutine(DestroyTimer());
             

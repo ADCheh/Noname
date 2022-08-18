@@ -1,5 +1,6 @@
 ﻿using System;
 using Hero;
+using Logic;
 using UnityEngine;
 
 namespace UI
@@ -8,23 +9,31 @@ namespace UI
     {
         public HpBar HpBar;
 
-        private HeroHealth _heroHealth;
+        private IHealth _health;
+
+        private void Start()
+        {
+            IHealth health = GetComponent<IHealth>();
+            
+            if(health != null)
+                Construct(health);
+        }
 
         private void OnDestroy()
         {
-            _heroHealth.HealthChanged -= UpdateHpBar;
+            if(_health != null)
+                _health.HealthChanged -= UpdateHpBar;
         }
 
-        public void Construct(HeroHealth health)
+        public void Construct(IHealth health)
         {
-            _heroHealth = health;
-
-            _heroHealth.HealthChanged += UpdateHpBar;
+            _health = health;
+            _health.HealthChanged += UpdateHpBar;
         }
 
         private void UpdateHpBar()
         {
-            HpBar.SetValue(_heroHealth.Current, _heroHealth.Max);
+            HpBar.SetValue(_health.Current, _health.Max);
         }
     }
 }
