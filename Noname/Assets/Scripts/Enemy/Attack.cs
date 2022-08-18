@@ -11,6 +11,7 @@ namespace Enemy
     public class Attack : MonoBehaviour
     {
         public EnemyAnimator Animator;
+        
         public float AttackCooldown = 3f;
         public float Cleavage = 0.5f;
         public float EffectiveDistance = 0.5f;

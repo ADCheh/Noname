@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2870977857344288625}
   - component: {fileID: 4961398304507867786}
   - component: {fileID: 6640244162904951492}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AggroZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,6 +404,7 @@ MonoBehaviour:
   AttackCooldown: 3
   Cleavage: 0.5
   EffectiveDistance: 0.5
+  Damage: 10
 --- !u!1 &5296576319147361108
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,7 +521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &910164186616442569
 Transform:
   m_ObjectHideFlags: 0
