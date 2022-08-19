@@ -52,14 +52,15 @@ namespace Infrastructure.Factory
             GameObject gameObject = _assets.Instantiate(prefabPath, at);
             RegisterProgressWatchers(gameObject);
             return gameObject;
-        }private GameObject InstantiateRegistered(string prefabPath)
+        }
+        private GameObject InstantiateRegistered(string prefabPath)
         {
             GameObject gameObject = _assets.Instantiate(prefabPath);
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
 
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
             if(progressReader is ISavedProgress progressWriter)
                 ProgressWriters.Add(progressWriter);

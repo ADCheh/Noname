@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
+using Logic;
 using UnityEngine;
 
 namespace Infrastructure.Factory
@@ -16,5 +17,6 @@ namespace Infrastructure.Factory
 
         event Action HeroCreated;
         void Cleanup();
+        void Register(ISavedProgressReader progressReader);
     }
 }

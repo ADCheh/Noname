@@ -8,9 +8,10 @@ using UnityEngine;
 
 namespace Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadSceneState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
+        private const string EnemySpawnerTag = "EnemySpawner";
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -18,7 +19,7 @@ namespace Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
+        public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -57,6 +58,8 @@ namespace Infrastructure.States
 
         private void InitGameWorld()
         {
+            InitSpawners();
+            
             GameObject hero = InitHero();
             
             //
@@ -64,6 +67,15 @@ namespace Infrastructure.States
             //
 
             CameraFollow(hero);
+        }
+
+        private void InitSpawners()
+        {
+            foreach (GameObject spawnerObject in GameObject.FindGameObjectsWithTag(EnemySpawnerTag))
+            {
+                var spawner = spawnerObject.GetComponent<EnemySpawner>();
+                _gameFactory.Register(spawner);
+            }
         }
 
         private void InitHud(GameObject hero)
