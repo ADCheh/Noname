@@ -1,6 +1,4 @@
-using System;
 using Infrastructure.Factory;
-using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,44 +12,21 @@ namespace Enemy
         private Transform _heroTransform;
         private IGameFactory _gameFactory;
 
-        private void Start()
+        public void Construct(Transform heroTransform)
         {
-            _gameFactory = AllServices.Containter.Single<IGameFactory>();
-
-            if (_gameFactory.HeroGameObject != null)
-            {
-                InitializeHeroTransform();
-            }
-            else
-            {
-                _gameFactory.HeroCreated += HeroCreated;
-            }
+            _heroTransform = heroTransform;
         }
+        
 
         private void Update()
         {
-            if(Initialized() && HeroNotReached())
+            SetDestinationForAgent();
+        }
+
+        private void SetDestinationForAgent()
+        {
+            if (_heroTransform)
                 Agent.destination = _heroTransform.position;
-        }
-
-        private bool Initialized()
-        {
-            return _heroTransform != null;
-        }
-
-        private void InitializeHeroTransform()
-        {
-            _heroTransform = _gameFactory.HeroGameObject.transform;
-        }
-
-        private void HeroCreated()
-        {
-            InitializeHeroTransform();
-        }
-
-        private bool HeroNotReached()
-        {
-            return Vector3.Distance(Agent.transform.position, _heroTransform.position) >= MinimalDistance;
         }
     }
 }
