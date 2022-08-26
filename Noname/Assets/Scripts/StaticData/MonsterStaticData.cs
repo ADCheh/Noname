@@ -9,6 +9,9 @@ namespace StaticData
         
         [Range(1,100)]
         public int Hp;
+
+        public int MinLoot;
+        public int MaxLoot;
         
         [Range(1f,30f)]
         public float Damage;
