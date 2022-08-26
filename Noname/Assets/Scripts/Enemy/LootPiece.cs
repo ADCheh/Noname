@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
 using Data;
+using Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class LootPiece : MonoBehaviour
+    public class LootPiece : MonoBehaviour, ISavedProgress
     {
         public GameObject Skull;
         public GameObject PickupFxPrefab;
@@ -72,6 +73,16 @@ namespace Enemy
         {
             LootText.text = $"{_loot.Value}";
             PickupPopup.SetActive(true);
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            Construct(progress.WorldData);
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            progress.WorldData.LootData.Collected = _worldData.LootData.Collected;
         }
     }
 }
