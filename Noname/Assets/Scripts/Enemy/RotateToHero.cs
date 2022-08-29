@@ -1,7 +1,4 @@
-﻿using System;
-using Infrastructure.Factory;
-using Infrastructure.Services;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemy
 {
@@ -10,33 +7,17 @@ namespace Enemy
         public float Speed;
 
         private Transform _heroTransform;
-        private IGameFactory _gameFactory;
         private Vector3 _positionToLook;
 
-        private void Start()
+        public void Construct(Transform heroTransform)
         {
-            _gameFactory = AllServices.Containter.Single<IGameFactory>();
-
-            if (HeroExists())
-                InitializeHeroTransform();
-            else
-                _gameFactory.HeroCreated += InitializeHeroTransform;
+            _heroTransform = heroTransform;
         }
 
         private void Update()
         {
             if (Initialized())
                 RotateTowardsHero();
-        }
-
-        private bool HeroExists()
-        {
-            return _gameFactory.HeroGameObject != null;
-        }
-
-        private void InitializeHeroTransform()
-        {
-            _heroTransform = _gameFactory.HeroGameObject.transform;
         }
 
         private void RotateTowardsHero()

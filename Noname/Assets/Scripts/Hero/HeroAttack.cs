@@ -44,7 +44,7 @@ namespace Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            _stats = progress.HeroStats;
+            _stats = progress.Stats;
         }
 
         private int Hit()

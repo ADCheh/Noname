@@ -1,8 +1,5 @@
 ﻿using System.Linq;
 using Data;
-using Hero;
-using Infrastructure.Factory;
-using Infrastructure.Services;
 using Logic;
 using UnityEngine;
 
@@ -17,8 +14,7 @@ namespace Enemy
         public float Cleavage = 0.5f;
         public float EffectiveDistance = 0.5f;
         public float Damage = 10f;
-
-        private IGameFactory _factory;
+        
         private Transform _heroTransform;
         private float _attackCooldown;
         private bool _isAttacking;
@@ -26,13 +22,14 @@ namespace Enemy
         private Collider[] _hits = new Collider[1];
         private bool _attackIsActive;
 
+        public void Construct(Transform heroTransform)
+        {
+            _heroTransform = heroTransform;
+        }
+
         private void Awake()
         {
-            _factory = AllServices.Containter.Single<IGameFactory>();
-
             _layerMask = 1 << LayerMask.NameToLayer("Player");
-            
-            _factory.HeroCreated += OnHeroCreated;
         }
 
         private void Update()
@@ -104,11 +101,6 @@ namespace Enemy
         private bool CoolDownIsUp()
         {
             return _attackCooldown <= 0f;
-        }
-
-        private void OnHeroCreated()
-        {
-            _heroTransform = _factory.HeroGameObject.transform;
         }
     }
 }
