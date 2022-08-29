@@ -1,10 +1,11 @@
 ﻿using Data;
+using Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 
 namespace UI
 {
-    public class LootCounter : MonoBehaviour
+    public class LootCounter : MonoBehaviour, ISavedProgress
     {
         public TextMeshProUGUI Counter;
         private WorldData _worldData;
@@ -23,6 +24,16 @@ namespace UI
         private void UpdateCounter()
         {
             Counter.text = $"{_worldData.LootData.Collected}";
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            Construct(progress.WorldData);
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            progress.WorldData.LootData.Collected = _worldData.LootData.Collected;
         }
     }
 }

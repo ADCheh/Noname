@@ -1,4 +1,7 @@
-﻿using CameraLogic;
+﻿using System.Collections.Generic;
+using CameraLogic;
+using Data;
+using Enemy;
 using Hero;
 using Infrastructure.Factory;
 using Infrastructure.Services.PersistentProgress;
@@ -19,7 +22,8 @@ namespace Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
 
-        public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistentProgressService progressService)
+        public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain,
+            IGameFactory gameFactory, IPersistentProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -43,7 +47,9 @@ namespace Infrastructure.States
         private void OnLoaded()
         {
             InitGameWorld();
+            InitDropedLoot();
             InformProgressReaders();
+
 
             _stateMachine.Enter<GameLoopState>();
         }
@@ -59,14 +65,27 @@ namespace Infrastructure.States
         private void InitGameWorld()
         {
             InitSpawners();
-            
+
             GameObject hero = InitHero();
-            
+
             //
             InitHud(hero);
             //
 
+
             CameraFollow(hero);
+        }
+
+        private void InitDropedLoot()
+        {
+            foreach (LootPieceData unpickedLoot in _progressService.Progress.WorldData.LootData
+                         .UnpickedLoot)
+            {
+                var lootPiece = _gameFactory.CreateLoot();
+                lootPiece.GetComponent<UniqueId>().Id = unpickedLoot.Id;
+                lootPiece.transform.position = unpickedLoot.LootPosition.AsUnityVector();
+                lootPiece.Initialize(unpickedLoot.Loot);
+            }
         }
 
         private void InitSpawners()
@@ -91,8 +110,7 @@ namespace Infrastructure.States
 
         private void CameraFollow(GameObject hero)
         {
-            Camera.main.
-                GetComponent<CameraFollow>().Follow(hero);
+            Camera.main.GetComponent<CameraFollow>().Follow(hero);
         }
     }
 }

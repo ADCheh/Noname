@@ -9,7 +9,7 @@ namespace Data
         public int Collected;
         public Action Changed;
 
-        public List<string> UnpickedLoot = new List<string>();
+        public List<LootPieceData> UnpickedLoot = new List<LootPieceData>();
 
         public void Collect(Loot loot)
         {

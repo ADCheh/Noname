@@ -45,7 +45,7 @@ namespace Enemy
         public void SetLoot(int min, int max)
         {
             _lootMin = min;
-            _lootMax = min;
+            _lootMax = max;
         }
     }
 }

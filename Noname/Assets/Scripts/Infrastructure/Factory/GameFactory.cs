@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Data;
 using Enemy;
 using Infrastructure.AssetManagement;
 using Infrastructure.Services;

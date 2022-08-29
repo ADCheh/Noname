@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Data;
 using Infrastructure.Services.PersistentProgress;
+using Logic;
 using TMPro;
 using UnityEngine;
 
@@ -44,12 +47,26 @@ namespace Enemy
             HideSkull();
             PlayPickupFx();
             ShowText();
+            
             StartCoroutine(StartDestroyTimer());
         }
 
         private void UpdateWorldData()
         {
             _worldData.LootData.Collect(_loot);
+            RemoveLootPieceFromData();
+        }
+
+        private void RemoveLootPieceFromData()
+        {
+            List<LootPieceData> lootOnScene = _worldData.LootData.UnpickedLoot;
+
+            if (lootOnScene.Any(x => x.Id == GetLootUniqueId()))
+            {
+                LootPieceData piece = lootOnScene.FirstOrDefault(x => x.Id == GetLootUniqueId());
+                lootOnScene.Remove(piece);
+            }
+                
         }
 
         private void HideSkull()
@@ -75,14 +92,25 @@ namespace Enemy
             PickupPopup.SetActive(true);
         }
 
-        public void LoadProgress(PlayerProgress progress)
-        {
-            Construct(progress.WorldData);
-        }
-
         public void UpdateProgress(PlayerProgress progress)
         {
-            progress.WorldData.LootData.Collected = _worldData.LootData.Collected;
+            if (_picked)
+                return;
+
+            List<LootPieceData> lootOnScene = progress.WorldData.LootData.UnpickedLoot;
+            
+            if(!lootOnScene.Any(x=>x.Id == GetLootUniqueId()))
+                lootOnScene.Add( new LootPieceData(GetLootUniqueId(),_loot, transform.position.AsVectorData()));
+                
+        }
+
+        private string GetLootUniqueId()
+        {
+            return gameObject.GetComponent<UniqueId>().Id;
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
         }
     }
 }
