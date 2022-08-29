@@ -11,13 +11,14 @@ namespace Infrastructure.Factory
 {
     public interface IGameFactory : IService
     {
-        GameObject CreateHero(GameObject at);
-        GameObject CreateHud();
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        void Cleanup();
-        void Register(ISavedProgressReader progressReader);
+        
         GameObject CreateMonster(MonsterTypeId typeId, Transform parentTransform);
+        GameObject CreateHero(GameObject at);
+        GameObject CreateHud();
         LootPiece CreateLoot();
+        void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
+        void Cleanup();
     }
 }
