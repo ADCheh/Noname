@@ -4,6 +4,7 @@ using Infrastructure.Factory;
 using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
+using Infrastructure.Services.StaticData;
 using Logic;
 
 namespace Infrastructure.States

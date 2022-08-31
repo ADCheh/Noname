@@ -3,7 +3,7 @@ using Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace UI.Elements
 {
     public class LootCounter : MonoBehaviour, ISavedProgress
     {
