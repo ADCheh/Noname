@@ -9,6 +9,7 @@ using Logic;
 using StaticData;
 using UI;
 using UI.Elements;
+using UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,9 +26,10 @@ namespace Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly IUIFactory _uiFactory;
 
         public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain,
-            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
+            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData, IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -35,6 +37,7 @@ namespace Infrastructure.States
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -51,12 +54,18 @@ namespace Infrastructure.States
 
         private void OnLoaded()
         {
+            InitUIRoot();
             InitGameWorld();
             InitDropedLoot();
             InformProgressReaders();
 
 
             _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InitUIRoot()
+        {
+            _uiFactory.CreateUIRoot();
         }
 
         private void InformProgressReaders()

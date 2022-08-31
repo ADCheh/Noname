@@ -1,8 +1,10 @@
 ﻿using Infrastructure.AssetManagement;
 using Infrastructure.Services;
+using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.StaticData;
 using StaticData.Windows;
 using UI.Services.Windows;
+using UI.Windows;
 using UnityEngine;
 
 namespace UI.Services.Factory
@@ -10,22 +12,25 @@ namespace UI.Services.Factory
     public class UIFactory : IUIFactory
     {
         private const string UIRootPath = "UI/UIRoot";
-        
-        private readonly IStaticDataService _staticData;
+
         private readonly IAssets _assets;
-        
+        private readonly IStaticDataService _staticData;
+        private readonly IPersistentProgressService _progressService;
+
         private Transform _uiRoot;
 
-        public UIFactory(IAssets assets, IStaticDataService staticData)
+        public UIFactory(IAssets assets, IStaticDataService staticData, IPersistentProgressService progressService)
         {
             _assets = assets;
             _staticData = staticData;
+            _progressService = progressService;
         }
 
         public void CreateShop()
         {
             WindowConfig config = _staticData.ForWindow(WindowId.Shop);
-            Object.Instantiate(config.prefab, _uiRoot);
+            WindowBase window = Object.Instantiate(config.prefab, _uiRoot);
+            window.Construct(_progressService);
         }
 
         public void CreateUIRoot()
