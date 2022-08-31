@@ -5,10 +5,13 @@ using Infrastructure.AssetManagement;
 using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.Randomizer;
+using Infrastructure.Services.StaticData;
 using Logic;
 using Logic.EnemySpawners;
 using StaticData;
 using UI;
+using UI.Elements;
+using UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -21,18 +24,20 @@ namespace Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private readonly IRandomService _random;
         private readonly IPersistentProgressService _progressService;
+        private readonly IWindowService _windowService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random, IPersistentProgressService progressService)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService random, IPersistentProgressService progressService, IWindowService windowService)
         {
             _assets = assets;
             _staticData = staticData;
             _random = random;
             _progressService = progressService;
+            _windowService = windowService;
         }
         public GameObject CreateHero(GameObject at)
         {
@@ -43,8 +48,12 @@ namespace Infrastructure.Factory
         public GameObject CreateHud()
         {
             GameObject hud = InstantiateRegistered(AssetPath.HudPath);
-            
             hud.GetComponentInChildren<LootCounter>().Construct(_progressService.Progress.WorldData);
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+            {
+                openWindowButton.Construct(_windowService);
+            }
             
             return hud;
         }

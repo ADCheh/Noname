@@ -4,8 +4,11 @@ using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.Randomizer;
 using Infrastructure.Services.SaveLoad;
+using Infrastructure.Services.StaticData;
 using Services.Input;
 using StaticData;
+using UI.Services.Factory;
+using UI.Services.Windows;
 
 namespace Infrastructure.States
 {
@@ -47,8 +50,16 @@ namespace Infrastructure.States
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IAssets>(new AssetProvider());
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>(),
-                _services.Single<IStaticDataService>(),randomService, _services.Single<IPersistentProgressService>()));
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssets>(), _services.Single<IStaticDataService>(),_services.Single<IPersistentProgressService>()));
+            _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
+            
+            _services.RegisterSingle<IGameFactory>(new GameFactory(
+                _services.Single<IAssets>(),
+                _services.Single<IStaticDataService>(),randomService,
+                _services.Single<IPersistentProgressService>(),
+                _services.Single<IWindowService>()
+                ));
+            
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistentProgressService>(), _services.Single<IGameFactory>()));
         }
 
