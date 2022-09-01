@@ -4,7 +4,7 @@ using UnityEngine.Advertisements;
 
 namespace Infrastructure.Services.Ads
 {
-    public class AdsService : IAdsService, IUnityAdsShowListener, IUnityAdsLoadListener
+    public class AdsService : IAdsService, IUnityAdsShowListener, IUnityAdsLoadListener, IUnityAdsInitializationListener
     {
         private const string AndroidGameId = "4910485";
         private const string IOSGameId = "4910484";
@@ -20,16 +20,25 @@ namespace Infrastructure.Services.Ads
 
         public void Initialize()
         {
+#if UNITY_IOS
+        _gameId = IOSGameId;
+#elif UNITY_ANDROID
+_gameId = AndroidGameId;
+#else
+            _gameId = IOSGameId;
+#endif
+            
+            Advertisement.Initialize(_gameId, true, this);
             Advertisement.Load(RewardedVideoPlacementId, this);
         }
 
         public void ShowRewardedVideo(Action onVideoFinished)
         {
-            Advertisement.Show(RewardedVideoPlacementId);
+            Advertisement.Show(RewardedVideoPlacementId, this);
             _onVideoFinished = onVideoFinished;
         }
 
-        public bool IsRewardedVideoReady => Advertisement.isInitialized;
+        public bool IsRewardedVideoReady => true/*Advertisement.isInitialized*/;
         
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
@@ -78,6 +87,16 @@ namespace Infrastructure.Services.Ads
         public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
         {
             Debug.Log($"OnUnityAdsFailedToLoad {placementId} : {message}");
+        }
+
+        public void OnInitializationComplete()
+        {
+            Debug.Log("OnInitializationComplete");
+        }
+
+        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+        {
+            Debug.LogError($"OnInitializationFailed : {message}");
         }
     }
 }

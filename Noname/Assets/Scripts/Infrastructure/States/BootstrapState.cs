@@ -76,7 +76,7 @@ namespace Infrastructure.States
         {
             AdsService adsService = new AdsService();
             adsService.Initialize();
-            _services.RegisterSingle(adsService);
+            _services.RegisterSingle<IAdsService>(adsService);
         }
 
         private void RegisterStaticData()
