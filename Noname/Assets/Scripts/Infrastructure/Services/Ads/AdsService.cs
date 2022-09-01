@@ -16,6 +16,8 @@ namespace Infrastructure.Services.Ads
 
         public event Action RewardedVideoReady;
 
+        public int Reward => 13;
+
         public void Initialize()
         {
             Advertisement.Load(RewardedVideoPlacementId, this);
