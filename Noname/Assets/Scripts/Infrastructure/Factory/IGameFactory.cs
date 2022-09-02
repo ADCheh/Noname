@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Data;
 using Enemy;
 using Infrastructure.Services;
@@ -14,7 +15,7 @@ namespace Infrastructure.Factory
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
         
-        GameObject CreateMonster(MonsterTypeId typeId, Transform parentTransform);
+        Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parentTransform);
         GameObject CreateHero(Vector3 at);
         GameObject CreateHud();
         LootPiece CreateLoot();

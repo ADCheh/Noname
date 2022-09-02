@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Data;
 using Enemy;
 using Infrastructure.AssetManagement;
@@ -13,7 +14,9 @@ using UI;
 using UI.Elements;
 using UI.Services.Windows;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
 
 namespace Infrastructure.Factory
@@ -58,12 +61,19 @@ namespace Infrastructure.Factory
             return hud;
         }
 
-        public GameObject CreateMonster(MonsterTypeId typeId, Transform parentTransform)
+        public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parentTransform)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(typeId);
-            GameObject monster = Object.Instantiate(monsterData.Prefab, parentTransform.position, Quaternion.identity);
 
-            var health = monster.GetComponent<IHealth>();
+            
+            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(monsterData.PrefabReference);
+            GameObject prefab = await handle.Task;
+            Addressables.Release(handle);
+            
+            
+            GameObject monster = Object.Instantiate(prefab, parentTransform.position, Quaternion.identity);
+
+            IHealth health = monster.GetComponent<IHealth>();
             health.Current = monsterData.Hp;
             health.Max = monsterData.Hp;
             
@@ -75,7 +85,7 @@ namespace Infrastructure.Factory
             lootSpawner.SetLoot(monsterData.MinLoot,monsterData.MaxLoot);
             lootSpawner.Consturct(this, _random);
 
-            var attack = monster.GetComponent<Attack>();
+            Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
             attack.Damage = monsterData.Damage;
             attack.Cleavage = monsterData.Cleavage;
