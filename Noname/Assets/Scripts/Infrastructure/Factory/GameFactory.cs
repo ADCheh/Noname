@@ -39,9 +39,9 @@ namespace Infrastructure.Factory
             _progressService = progressService;
             _windowService = windowService;
         }
-        public GameObject CreateHero(GameObject at)
+        public GameObject CreateHero(Vector3 at)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
             return HeroGameObject;
         }
 
