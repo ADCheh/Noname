@@ -16,5 +16,5 @@ MonoBehaviour:
   EnemySpawners:
   - Id: Main_cd49d609-ec14-4e9f-9cd9-da4d8cbd1507
     MonsterTypeId: 0
-    Position: {x: -0.5516924, y: 4.331787, z: -9.851065}
-  InitialHeroPosition: {x: -4, y: 0, z: 32.97}
+    Position: {x: 22.45, y: 8.4, z: 28.79}
+  InitialHeroPosition: {x: -4.8, y: 2.58, z: -19.27}
