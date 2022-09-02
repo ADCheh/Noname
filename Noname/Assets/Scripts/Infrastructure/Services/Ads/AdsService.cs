@@ -25,10 +25,16 @@ namespace Infrastructure.Services.Ads
 #elif UNITY_ANDROID
 _gameId = AndroidGameId;
 #else
-            _gameId = IOSGameId;
+            _gameId = AndroidGameId;
 #endif
             
             Advertisement.Initialize(_gameId, true, this);
+            
+            
+        }
+
+        public void LoadRewardedVideo()
+        {
             Advertisement.Load(RewardedVideoPlacementId, this);
         }
 
@@ -38,10 +44,13 @@ _gameId = AndroidGameId;
             _onVideoFinished = onVideoFinished;
         }
 
-        public bool IsRewardedVideoReady => true/*Advertisement.isInitialized*/;
+        public bool IsRewardedVideoReady => Advertisement.isInitialized && Advertisement.isSupported;
         
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
+            var b = Advertisement.isInitialized;
+            var c = Advertisement.isSupported;
+            var d = Advertisement.isShowing;
             Debug.Log($"OnUnityAdsShowFailure {placementId} : {message}");
         }
 

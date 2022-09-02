@@ -9,5 +9,6 @@ namespace Infrastructure.Services.Ads
         int Reward { get; }
         void Initialize();
         void ShowRewardedVideo(Action onVideoFinished);
+        void LoadRewardedVideo();
     }
 }

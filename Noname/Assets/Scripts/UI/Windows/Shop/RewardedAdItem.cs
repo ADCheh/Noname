@@ -23,6 +23,8 @@ namespace UI.Windows.Shop
         {
             ShowAdButton.onClick.AddListener(OnShowAddClick);
 
+            _adsService.LoadRewardedVideo();
+            
             RefreshAvailableAd();
         }
 
@@ -48,6 +50,7 @@ namespace UI.Windows.Shop
 
         private void RefreshAvailableAd()
         {
+
             bool videoReady = _adsService.IsRewardedVideoReady;
 
             foreach (GameObject adActiveObject in AdActiveObjects)
