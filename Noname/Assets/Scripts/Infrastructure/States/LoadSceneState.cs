@@ -55,7 +55,7 @@ namespace Infrastructure.States
 
         private async void OnLoaded()
         {
-            InitUIRoot();
+            await InitUIRoot();
             await InitGameWorld();
             
             InformProgressReaders();
@@ -64,9 +64,9 @@ namespace Infrastructure.States
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitUIRoot()
+        private async Task InitUIRoot()
         {
-            _uiFactory.CreateUIRoot();
+            await _uiFactory.CreateUIRoot();
         }
 
         private void InformProgressReaders()
@@ -84,10 +84,10 @@ namespace Infrastructure.States
             await InitSpawners(levelData);
             await InitDroppedLoot();
             
-            GameObject hero = InitHero(levelData);
+            GameObject hero = await InitHero(levelData);
 
             //
-            InitHud(hero);
+            await InitHud(hero);
             //
 
 
@@ -114,15 +114,15 @@ namespace Infrastructure.States
             }
         }
 
-        private void InitHud(GameObject hero)
+        private async Task InitHud(GameObject hero)
         {
-            GameObject hud = _gameFactory.CreateHud();
+            GameObject hud = await _gameFactory.CreateHud();
             hud.GetComponentInChildren<ActorUI>().Construct(hero.GetComponent<HeroHealth>());
         }
 
-        private GameObject InitHero(LevelStaticData levelData)
+        private async Task<GameObject> InitHero(LevelStaticData levelData)
         {
-            return _gameFactory.CreateHero(levelData.InitialHeroPosition);
+            return await _gameFactory.CreateHero(levelData.InitialHeroPosition);
         }
 
         private LevelStaticData LevelStaticData()

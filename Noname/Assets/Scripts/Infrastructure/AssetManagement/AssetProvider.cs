@@ -32,16 +32,14 @@ namespace Infrastructure.AssetManagement
             return await RunWithCacheOnComplete(Addressables.LoadAssetAsync<T>(address), address);
         }
 
-        public GameObject Instantiate(string path)
+        public Task<GameObject> Instantiate(string address)
         {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
+            return Addressables.InstantiateAsync(address).Task;
         }
 
-        public GameObject Instantiate(string path, Vector3 at)
+        public Task<GameObject> Instantiate(string address, Vector3 at)
         {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at ,Quaternion.identity);
+            return Addressables.InstantiateAsync(address, at ,Quaternion.identity).Task;
         }
 
         public void CleanUp()

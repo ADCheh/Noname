@@ -16,8 +16,8 @@ namespace Infrastructure.Factory
         List<ISavedProgress> ProgressWriters { get; }
         
         Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parentTransform);
-        GameObject CreateHero(Vector3 at);
-        GameObject CreateHud();
+        Task<GameObject> CreateHero(Vector3 at);
+        Task<GameObject> CreateHud();
         Task<LootPiece> CreateLoot();
         Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
         void Cleanup();
