@@ -1,22 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Data;
 using Enemy;
 using Infrastructure.AssetManagement;
-using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.Randomizer;
 using Infrastructure.Services.StaticData;
 using Logic;
 using Logic.EnemySpawners;
 using StaticData;
-using UI;
 using UI.Elements;
 using UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Object = UnityEngine.Object;
 
 namespace Infrastructure.Factory
@@ -65,12 +60,7 @@ namespace Infrastructure.Factory
         {
             MonsterStaticData monsterData = _staticData.ForMonster(typeId);
 
-            
-            AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(monsterData.PrefabReference);
-            GameObject prefab = await handle.Task;
-            Addressables.Release(handle);
-            
-            
+            GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
             GameObject monster = Object.Instantiate(prefab, parentTransform.position, Quaternion.identity);
 
             IHealth health = monster.GetComponent<IHealth>();
@@ -116,6 +106,8 @@ namespace Infrastructure.Factory
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
+            
+            _assets.CleanUp();
         }
 
         private void Register(ISavedProgressReader progressReader)
