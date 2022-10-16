@@ -1,5 +1,7 @@
-﻿using CameraLogic;
+﻿using System.Threading.Tasks;
+using CameraLogic;
 using Data;
+using Enemy;
 using Hero;
 using Infrastructure.Factory;
 using Infrastructure.Services;
@@ -42,6 +44,7 @@ namespace Infrastructure.States
         {
             _curtain.Show();
             _gameFactory.Cleanup();
+            _gameFactory.WarmUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -50,11 +53,11 @@ namespace Infrastructure.States
             _curtain.Hide();
         }
 
-        private void OnLoaded()
+        private async void OnLoaded()
         {
             InitUIRoot();
-            InitGameWorld();
-            InitDropedLoot();
+            await InitGameWorld();
+            
             InformProgressReaders();
 
 
@@ -74,12 +77,13 @@ namespace Infrastructure.States
             }
         }
 
-        private void InitGameWorld()
+        private async Task InitGameWorld()
         {
             var levelData = LevelStaticData();
 
-            InitSpawners(levelData);
-
+            await InitSpawners(levelData);
+            await InitDroppedLoot();
+            
             GameObject hero = InitHero(levelData);
 
             //
@@ -90,23 +94,23 @@ namespace Infrastructure.States
             CameraFollow(hero);
         }
 
-        private void InitDropedLoot()
+        private async Task InitDroppedLoot()
         {
             foreach (LootPieceData unpickedLoot in _progressService.Progress.WorldData.LootData.UnpickedLoot)
             {
-                var lootPiece = _gameFactory.CreateLoot();
+                LootPiece lootPiece = await _gameFactory.CreateLoot();
                 lootPiece.GetComponent<UniqueId>().Id = unpickedLoot.Id;
                 lootPiece.transform.position = unpickedLoot.LootPosition.AsUnityVector();
                 lootPiece.Initialize(unpickedLoot.Loot);
             }
         }
 
-        private void InitSpawners(LevelStaticData levelData)
+        private async Task InitSpawners(LevelStaticData levelData)
         {
             
             foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
             {
-                _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId);
+                await _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.MonsterTypeId);
             }
         }
 

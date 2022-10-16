@@ -12,27 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84d07b45e2e41ec84b5f986824e7929, type: 3}
   m_Name: Dungeon
   m_EditorClassIdentifier: 
-  LevelKey: Main
+  LevelKey: Dungeon
   EnemySpawners:
-  - Id: Main_cd49d609-ec14-4e9f-9cd9-da4d8cbd1507
-    MonsterTypeId: 0
-    Position: {x: 3.11, y: 0, z: -14.77}
-  - Id: Main_d0a585ce-0807-4951-a57e-67fc4cce5c53
-    MonsterTypeId: 10
-    Position: {x: -8.86, y: 0, z: -0.51}
-  - Id: Main_507ea301-b70e-421b-b007-9f34268d8b56
-    MonsterTypeId: 10
-    Position: {x: 11.42, y: 0, z: -7.31}
-  - Id: Main_d28d3af5-c8c7-4f1b-b447-0821b90bc8c4
-    MonsterTypeId: 0
-    Position: {x: 6.59, y: 0, z: 0.1}
-  - Id: Main_10ea8773-f0fc-48cb-ae07-72e85b5e59b1
-    MonsterTypeId: 0
-    Position: {x: 0.85, y: 0, z: 8.95}
-  - Id: Main_8c7ef904-1526-444f-82d2-2e3f5d92932e
-    MonsterTypeId: 0
-    Position: {x: -7.7, y: 0, z: -8.65}
-  - Id: Main_482a1ce8-de2d-44e4-818a-51c98e6781e5
-    MonsterTypeId: 0
-    Position: {x: -14.4, y: 0, z: -14.42}
-  InitialHeroPosition: {x: 11.38, y: 2.27, z: -14.79}
+  - Id: Dungeon_26e84538-4e64-4213-b791-abc10899fc8e
+    MonsterTypeId: 20
+    Position: {x: -5.65, y: 0, z: 30.72}
+  InitialHeroPosition: {x: -4.8, y: 2.58, z: -19.27}

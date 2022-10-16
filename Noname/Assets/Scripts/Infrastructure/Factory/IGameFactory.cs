@@ -18,8 +18,9 @@ namespace Infrastructure.Factory
         Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parentTransform);
         GameObject CreateHero(Vector3 at);
         GameObject CreateHud();
-        LootPiece CreateLoot();
-        void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
+        Task<LootPiece> CreateLoot();
+        Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId);
         void Cleanup();
+        Task WarmUp();
     }
 }
