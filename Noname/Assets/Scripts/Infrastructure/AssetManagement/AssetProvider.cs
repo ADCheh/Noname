@@ -41,6 +41,10 @@ namespace Infrastructure.AssetManagement
         {
             return Addressables.InstantiateAsync(address, at ,Quaternion.identity).Task;
         }
+        public Task<GameObject> Instantiate(string address, Transform under)
+        {
+            return Addressables.InstantiateAsync(address, under).Task;
+        }
 
         public void CleanUp()
         {

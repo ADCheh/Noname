@@ -12,5 +12,7 @@ namespace Infrastructure.Services.IAP
         public int MaxPurchaseCount;
         public ItemType ItemType;
         public int Quantity;
+        public string Price;
+        public string Icon;
     }
 }
