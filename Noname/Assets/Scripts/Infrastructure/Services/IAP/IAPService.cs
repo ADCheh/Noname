@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Data;
 using Infrastructure.Services.PersistentProgress;
 using UnityEngine.Purchasing;
 
 namespace Infrastructure.Services.IAP
 {
-    public class IAPService
+    public class IAPService : IIAPService
     {
         private readonly IAPProvider _iapProvider;
         private readonly IPersistentProgressService _progressService;
@@ -23,6 +26,43 @@ namespace Infrastructure.Services.IAP
         {
             _iapProvider.Initialize(this);
             _iapProvider.Initialized += () => Initialized?.Invoke();
+        }
+
+        public List<ProductDescription> Products()
+        {
+            return ProductDescriptions().ToList();
+        }
+
+        private IEnumerable<ProductDescription> ProductDescriptions()
+        {
+            PurchaseData purchaseData = _progressService.Progress.PurchaseData;
+            foreach (string productId in _iapProvider.Products.Keys)
+            {
+                ProductConfig config = _iapProvider.Configs[productId];
+                Product product = _iapProvider.Products[productId];
+
+                BoughtIap boughtIap = purchaseData.BoughtIAPs.Find(x => x.IAPid == productId);
+                
+                if(ProductBoughtOut(boughtIap, config))
+                    continue;
+
+                yield return new ProductDescription
+                {
+                    Id = productId,
+                    Config = config,
+                    Product = product,
+                    AvailablePurchasesLeft = boughtIap != null
+                        ? config.MaxPurchaseCount - boughtIap.Count
+                        : config.MaxPurchaseCount,
+                };
+            }
+            
+            
+        }
+
+        private static bool ProductBoughtOut(BoughtIap boughtIap, ProductConfig config)
+        {
+            return boughtIap != null && boughtIap.Count >= config.MaxPurchaseCount;
         }
 
         public void StartPurchase(string productId)

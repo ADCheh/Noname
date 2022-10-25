@@ -7,12 +7,12 @@ namespace Data
     [Serializable]
     public class PurchaseData
     {
-        public List<BoughtIAP> BoughtIAPs = new List<BoughtIAP>();
+        public List<BoughtIap> BoughtIAPs = new List<BoughtIap>();
         public Action Changed;
 
         public void AddPurchase(string id)
         {
-            BoughtIAP boughtIap = Product(id);
+            BoughtIap boughtIap = Product(id);
 
             if (boughtIap != null)
             {
@@ -20,13 +20,13 @@ namespace Data
             }
             else
             {
-                BoughtIAPs.Add(new BoughtIAP {IAPid = id, Count = 1});
+                BoughtIAPs.Add(new BoughtIap {IAPid = id, Count = 1});
             }
             
             Changed?.Invoke();
         }
 
-        private BoughtIAP Product(string id)
+        private BoughtIap Product(string id)
         {
             return BoughtIAPs.Find(x => x.IAPid == id);
         }

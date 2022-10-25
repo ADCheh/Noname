@@ -3,7 +3,7 @@
 namespace Data
 {
     [Serializable]
-    public class BoughtIAP
+    public class BoughtIap
     {
         public string IAPid;
         public int Count;

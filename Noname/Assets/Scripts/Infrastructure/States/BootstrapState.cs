@@ -2,6 +2,7 @@
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using Infrastructure.Services.Ads;
+using Infrastructure.Services.IAP;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.Randomizer;
 using Infrastructure.Services.SaveLoad;
@@ -48,12 +49,14 @@ namespace Infrastructure.States
 
             IRandomService randomService = new RandomService();
             _services.RegisterSingle<IRandomService>(randomService);
-            
+
             _services.RegisterSingle<IInputService>(InputService());
             _services.RegisterSingle<IGameStateMachine>(_stateMachine);
             RegisterAssetProvider();
             _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
             
+            RegisterIAPService(new IAPProvider(), _services.Single<IPersistentProgressService>());
+
             _services.RegisterSingle<IUIFactory>(new UIFactory(
                 _services.Single<IAssets>(), 
                 _services.Single<IStaticDataService>(),
@@ -85,6 +88,12 @@ namespace Infrastructure.States
             AdsService adsService = new AdsService();
             adsService.Initialize();
             _services.RegisterSingle<IAdsService>(adsService);
+        }
+        private void RegisterIAPService(IAPProvider iapProvider, IPersistentProgressService progressService)
+        {
+            IAPService iapService = new IAPService(iapProvider, progressService);
+            iapService.Initialize();
+            _services.RegisterSingle<IIAPService>(iapService);
         }
 
         private void RegisterStaticData()
