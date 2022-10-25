@@ -39,32 +39,56 @@ MonoBehaviour:
     m_Address: Loot
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 7880382966684822008, guid: d587ba2fd38b20449986c007d26d2b8a, type: 3}
-    m_TargetAsset: {fileID: 7880382966684822008, guid: d587ba2fd38b20449986c007d26d2b8a, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 40cc7d826b402d54bb8f35649bf8a5ff
     m_Address: SpawnPoint
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4113120626392223857, guid: 40cc7d826b402d54bb8f35649bf8a5ff, type: 3}
-    m_TargetAsset: {fileID: 4113120626392223857, guid: 40cc7d826b402d54bb8f35649bf8a5ff, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 181862a89f60d7a459002f9870860ad4
     m_Address: Hero
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 176288, guid: 181862a89f60d7a459002f9870860ad4, type: 3}
-    m_TargetAsset: {fileID: 176288, guid: 181862a89f60d7a459002f9870860ad4, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 046e0834ad374a847b84a4f9d115d7bb
     m_Address: Hud
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 2715054291023336875, guid: 046e0834ad374a847b84a4f9d115d7bb, type: 3}
-    m_TargetAsset: {fileID: 2715054291023336875, guid: 046e0834ad374a847b84a4f9d115d7bb, type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f684e10e5404fce4a872bc2cd9773d68
     m_Address: UIRoot
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 883df9e2caf35f04bb677b0bfb7895e4
+    m_Address: ShopItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 4669049935925273032, guid: 883df9e2caf35f04bb677b0bfb7895e4, type: 3}
+    m_TargetAsset: {fileID: 4669049935925273032, guid: 883df9e2caf35f04bb677b0bfb7895e4, type: 3}
+  - m_GUID: 5cfd9e7e3f93bcf439168f6ece495be7
+    m_Address: iap_icon_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 2800000, guid: 5cfd9e7e3f93bcf439168f6ece495be7, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 5cfd9e7e3f93bcf439168f6ece495be7, type: 3}
+  - m_GUID: 4dd109f70c2c3f7489e52e415197c49c
+    m_Address: iap_icon_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 2800000, guid: 4dd109f70c2c3f7489e52e415197c49c, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 4dd109f70c2c3f7489e52e415197c49c, type: 3}
+  - m_GUID: 6c5408548833e19418b348ed04072592
+    m_Address: iap_icon_18
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 2800000, guid: 6c5408548833e19418b348ed04072592, type: 3}
+    m_TargetAsset: {fileID: 2800000, guid: 6c5408548833e19418b348ed04072592, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8aa5377b4937e9542a69beb24826d06e, type: 2}
   m_SchemaSet:
